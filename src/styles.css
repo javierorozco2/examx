@@ -1,0 +1,111 @@
+*{
+    font-family: "Product Sans", "Montserrat", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.logo{
+    display: flex;
+    font-size: 58px;
+    font-family: 'Montserrat';
+    font-weight: 300;
+    color: #898B8A;
+}
+
+.logo .logo-x{
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 200;
+    color: #3a89c9;    
+}
+
+/* ///////////// LOGIN /////////////// */
+#login{
+    display: flex;
+    align-items: center;
+}
+
+#login-d1{
+    background-color: #F2F2F2;
+    flex: 4;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#login-d1 img{
+    width: 420px;
+    /* object-fit: contain; */
+}
+
+#login-d1 p{
+    margin-bottom: 10px;
+}
+
+#login-d2{
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.8);
+    background-color: #222A35;
+    flex: 3;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#login-d2-title{
+    font-size: 24px;
+    color: rgba(255, 255, 255, 1);
+    margin-bottom: 30px;
+}
+
+#login-d2 form{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+}
+
+#login-d2 form input{
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+    width: 80%;
+    height: 24px;
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: #ffffff56;
+    color: #fff;
+}
+
+#login-d2 form input::placeholder{
+    color: rgba(255, 255, 255, 0.342);
+}
+
+#login-d2-forg{
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth-btn{
+    background: #fff;
+    border-radius: 15px;
+    width: 200px;
+    height: 36px;
+    color: #222A35;
+    font-size: 14px;
+    font-weight: 900;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.2s background ease;
+    border: none;
+}
+
+.auth-btn:hover{
+    background-color: rgba(255, 255, 255, 0.253);
+    color: #fff;
+}
