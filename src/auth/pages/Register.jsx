@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("")
     const [passwd, setPasswd] = useState("")
@@ -49,8 +52,8 @@ export const Register = () => {
                     />
                 </form>
 
-                <button className='auth-btn' type="submit">Entrar</button>
-                <button className='auth-btn'>Iniciar sesión</button>
+                <button className='auth-btn' type="submit" onClick={ () => navigate("/")}>Entrar</button>
+                <button className='auth-btn' onClick={ () => navigate("/auth/login")}>Iniciar sesión</button>
 
                 <p id='login-d2-forg'>¿Olvidaste tu contraseña? <br /> Haz clic <a href="#">aquí</a></p>
             </div>

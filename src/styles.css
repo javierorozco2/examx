@@ -1,3 +1,13 @@
+:root{
+    --background-color: #F2F2F2;
+    --element-color: #222A34;
+    --blue-color: #3A89C9;
+    --red-color: #FF4F4F;
+    --orange-color: #FFC000;
+    --green-color: #92D050;
+
+}
+
 *{
     font-family: "Product Sans", "Montserrat", Helvetica, Arial, sans-serif;
     margin: 0;
