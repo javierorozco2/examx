@@ -1,0 +1,10 @@
+<svg width="170" height="174" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" overflow="hidden">
+    <defs>
+        <clipPath id="clip0">
+            <rect x="869" y="209" width="170" height="174" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip0)" transform="translate(-869 -209)">
+        <text fill="#00B0F0" font-family="Century Gothic,Century Gothic_MSFontService,sans-serif" font-weight="700" font-size="150" transform="matrix(1 0 0 1 918.888 315)">X</text>
+    </g>
+</svg>
