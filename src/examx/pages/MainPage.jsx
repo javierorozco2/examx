@@ -1,4 +1,4 @@
-import { Sidebar, Overview, Search } from '../components'
+import { Sidebar, Overview, Search } from '../components/MainPage'
 import '../css/main-styles.css'
 
 export const MainPage = () => {
