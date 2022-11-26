@@ -36,7 +36,7 @@
 }
 
 #login-d1{
-    background-color: #F2F2F2;
+    background-color: var(--background-color);
     flex: 4;
     height: 100vh;
     display: flex;
@@ -56,7 +56,7 @@
 
 #login-d2{
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.8);
-    background-color: #222A35;
+    background-color: var(--element-color);
     flex: 3;
     height: 100vh;
     display: flex;
@@ -106,7 +106,7 @@
     border-radius: 15px;
     width: 200px;
     height: 36px;
-    color: #222A35;
+    color: var(--element-color);
     font-size: 14px;
     font-weight: 900;
     margin-top: 15px;
