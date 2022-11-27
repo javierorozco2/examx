@@ -9,6 +9,8 @@ export const MainPage = () => {
 
             <Search/>
 
+            <div className='main-line'/>
+
             <Overview/>
 
         </div>
