@@ -4,4 +4,4 @@ Entrenador de alumnos proximos a realizar el examen EGEL-PLUS
 
 # Usage
 
-[examX](https://aunnohaysitioweb.com/)
+[examX](https://examx.online/)
