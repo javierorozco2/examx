@@ -12,7 +12,6 @@ export const Sidebar = () => {
     const dispatch = useDispatch()
 
     const onLogout = () => {
-        console.log('cerro sesion');
         dispatch(startLogout())
     }
 

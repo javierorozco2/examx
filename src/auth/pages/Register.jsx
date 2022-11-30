@@ -22,8 +22,6 @@ const formValidations = { //Validaciones para mandar a hook
 export const Register = () => {
 
     const dispatch = useDispatch()  //usar funciones de Redux
-    const { status, errorMessage } = useSelector(state => state.auth) // Obtener status actual y error
-    const isCheckingAuthentication = useMemo(() => status === 'checking', [status]) //Boleano para bloquear botones
     const [formSubmitted, setFormSubmitted] = useState(false)
 
     const { formState, displayName, email, password, onInputChange,
