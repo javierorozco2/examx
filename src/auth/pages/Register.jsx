@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc"
+import { BiErrorAlt } from "react-icons/bi"
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
-import { startGoogleSignIn } from '../../store/auth/thunks'
+import { startCreatingWithEmailPassword, startGoogleSignIn } from '../../store/auth/thunks'
 
 const formData = { //Data de formularios
     email: '',
@@ -13,28 +14,32 @@ const formData = { //Data de formularios
 }
 
 const formValidations = { //Validaciones para mandar a hook
-
+    displayName: [(value) => value.length >= 1, 'Es necesario ingresar un nombre'],
+    password: [(value) => value.length >= 6, 'La contraseña debe de tener mas de 6 caracteres'],
+    email: [(value) => value.includes('@'), 'El formato del correo es incorrecto']
 }
 
 export const Register = () => {
 
     const dispatch = useDispatch()  //usar funciones de Redux
-    const { status, errorMessage } = useSelector( state => state.auth) // Obtener status actual y error
-    const isCheckingAuthentication = useMemo( () => status === 'checking', [status]) //Boleano para bloquear botones
+    const { status, errorMessage } = useSelector(state => state.auth) // Obtener status actual y error
+    const isCheckingAuthentication = useMemo(() => status === 'checking', [status]) //Boleano para bloquear botones
+    const [formSubmitted, setFormSubmitted] = useState(false)
 
-    const navigate = useNavigate()
-
-    const { formState, displayName, email, password,  passwordr,  onInputChange,
-        isFormValid, displayNameValid, emailValid, passwordValid, passwordrValid  } = useForm(formData, formValidations)
+    const { formState, displayName, email, password, onInputChange,
+        isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations)
 
     const onSubmit = (e) => {
         e.preventDefault()
 
-        // Se envian los datos para validar la sesion
+        setFormSubmitted(true)
+
+        if (!isFormValid) return
+
+        dispatch( startCreatingWithEmailPassword(formState) )
     }
 
     const onGoogleSignIn = () => {
-        console.log('Google');
         dispatch(startGoogleSignIn())
     }
 
@@ -47,6 +52,7 @@ export const Register = () => {
 
             <div id='login-d2'>
                 <p id='login-d2-title'>Regístrate</p>
+
                 <form onSubmit={onSubmit}>
                     <input
                         type="text"
@@ -55,6 +61,7 @@ export const Register = () => {
                         value={displayName}
                         onChange={onInputChange}
                     />
+
                     <input
                         type="email"
                         placeholder='Correo'
@@ -69,17 +76,22 @@ export const Register = () => {
                         value={password}
                         onChange={onInputChange}
                     />
-                    <input
-                        type="password"
-                        placeholder='Repetir contraseña'
-                        name='passwordr'
-                        value={passwordr}
-                        onChange={onInputChange}
-                    />
+
+                    {
+                        formSubmitted && (
+                            <>
+                                { displayNameValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{displayNameValid}</div>) }
+                                { passwordValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{passwordValid}</div>) }
+                                { emailValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{emailValid}</div>) }
+                            </>
+                        )
+                    }
+
+
+                    <button className='auth-btn' type="submit">Registrarse</button>
                 </form>
 
-                <button className='auth-btn' type="submit" onClick={() => navigate("/")}>Registrarse</button>
-                <button className='auth-btn' onClick={onGoogleSignIn}>< FcGoogle className='googleicon'/>Registrate con Google</button>
+                <button className='auth-btn' onClick={onGoogleSignIn}>< FcGoogle className='googleicon' />Registrate con Google</button>
 
                 <p id='login-d2-forg'>¿Ya tienes cuenta? <br /> Inicia sesión <Link to="auth/login">aquí</Link></p>
             </div>
