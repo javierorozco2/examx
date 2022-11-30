@@ -1,4 +1,4 @@
-:root{
+:root {
     --background-color: #F2F2F2;
     --element-color: #222A34;
     --blue-color: #3A89C9;
@@ -8,13 +8,13 @@
 
 }
 
-*{
+* {
     font-family: "Product Sans", "Montserrat", Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.logo{
+.logo {
     display: flex;
     font-size: 58px;
     font-family: 'Montserrat';
@@ -22,20 +22,20 @@
     color: #898B8A;
 }
 
-.logo .logo-x{
+.logo .logo-x {
     font-size: inherit;
     font-family: inherit;
     font-weight: 200;
-    color: #3a89c9;    
+    color: #3a89c9;
 }
 
 /* ///////////// LOGIN /////////////// */
-#login{
+#login {
     display: flex;
     align-items: center;
 }
 
-#login-d1{
+#login-d1 {
     background-color: var(--background-color);
     flex: 4;
     height: 100vh;
@@ -45,16 +45,16 @@
     align-items: center;
 }
 
-#login-d1 img{
+#login-d1 img {
     width: 420px;
     /* object-fit: contain; */
 }
 
-#login-d1 p{
+#login-d1 p {
     margin-bottom: 10px;
 }
 
-#login-d2{
+#login-d2 {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.8);
     background-color: var(--element-color);
     flex: 3;
@@ -65,20 +65,20 @@
     flex-direction: column;
 }
 
-#login-d2-title{
+#login-d2-title {
     font-size: 24px;
     color: rgba(255, 255, 255, 1);
     margin-bottom: 30px;
 }
 
-#login-d2 form{
+#login-d2 form {
     display: flex;
     flex-direction: column;
     width: 80%;
     align-items: center;
 }
 
-#login-d2 form input{
+#login-d2 form input {
     border-radius: 10px;
     border: none;
     margin-bottom: 20px;
@@ -90,18 +90,21 @@
     color: #fff;
 }
 
-#login-d2 form input::placeholder{
+#login-d2 form input::placeholder {
     color: rgba(255, 255, 255, 0.342);
 }
 
-#login-d2-forg{
+#login-d2-forg {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.5);
     margin-top: 20px;
     text-align: center;
 }
 
-.auth-btn{
+.auth-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #fff;
     border-radius: 15px;
     width: 200px;
@@ -115,11 +118,24 @@
     border: none;
 }
 
-.auth-btn:hover{
+.googleicon {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.auth-btn:hover {
     background-color: rgba(255, 255, 255, 0.253);
     color: #fff;
 }
 
+.container-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--element-color);
+}
 /* Login resposive */
 
 @media (max-width: 800px) {
@@ -127,12 +143,11 @@
         flex-direction: column;
     }
 
-    #login-d1{
-        
-    }
-    #login-d2{
+    #login-d1 {}
+
+    #login-d2 {
         width: 100%;
         height: 100% !important;
 
     }
-  }
+}

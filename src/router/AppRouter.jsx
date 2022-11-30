@@ -1,16 +1,28 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { AuthRoutes } from "../auth/routes/AuthRoutes"
 import { ExamxRoutes } from "../examx/routes/ExamxRoutes"
+import { useCheckAuth } from "../hooks/useCheckAuth"
+import { CheckingAuth } from "../ui/CheckingAuth"
 
 export const AppRouter = () => {
+
+    const status = useCheckAuth()
+
+    if (status === 'checking') {
+        return <CheckingAuth />
+    }
+
     return (
         <Routes>
 
-            {/* Apartado auth */}
-            <Route path="/auth/*" element={ <AuthRoutes/>}/>
+            {
+                (status === 'authenticated')
+                    ? <Route path="/*" element={<ExamxRoutes />} />
+                    : <Route path="/auth/*" element={<AuthRoutes />} />
+            }
 
-            {/* Menu principal -> acceso solo con cuenta */}
-            <Route path="/" element={ <ExamxRoutes/> } />
+            <Route path='/*' element={<Navigate to='/auth/login' />} />
+
         </Routes>
     )
 }

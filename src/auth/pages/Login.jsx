@@ -17,7 +17,7 @@ export const Login = () => {
     return (
         <div id='login'>
             <div id='login-d1' >
-                <p className='logo'>exam<p className='logo-x'>X</p></p>
+                <div className='logo'>exam<p className='logo-x'>X</p></div>
                 <img src="../../public/images/working-man.png" alt="iniciar-sesion-imagen" />
             </div>
 
