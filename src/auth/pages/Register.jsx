@@ -49,49 +49,51 @@ export const Register = () => {
             </div>
 
             <div id='login-d2'>
-                <p id='login-d2-title'>Regístrate</p>
+                <div className='login-formcontainer animate__animated animate__fadeIn'>
+                    <p id='login-d2-title'>Regístrate</p>
 
-                <form onSubmit={onSubmit}>
-                    <input
-                        type="text"
-                        placeholder='Nombre'
-                        name='displayName'
-                        value={displayName}
-                        onChange={onInputChange}
-                    />
+                    <form onSubmit={onSubmit}>
+                        <input
+                            type="text"
+                            placeholder='Nombre'
+                            name='displayName'
+                            value={displayName}
+                            onChange={onInputChange}
+                        />
 
-                    <input
-                        type="email"
-                        placeholder='Correo'
-                        name='email'
-                        value={email}
-                        onChange={onInputChange}
-                    />
-                    <input
-                        type="password"
-                        placeholder='Contraseña'
-                        name='password'
-                        value={password}
-                        onChange={onInputChange}
-                    />
+                        <input
+                            type="email"
+                            placeholder='Correo'
+                            name='email'
+                            value={email}
+                            onChange={onInputChange}
+                        />
+                        <input
+                            type="password"
+                            placeholder='Contraseña'
+                            name='password'
+                            value={password}
+                            onChange={onInputChange}
+                        />
 
-                    {
-                        formSubmitted && (
-                            <>
-                                { displayNameValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{displayNameValid}</div>) }
-                                { passwordValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{passwordValid}</div>) }
-                                { emailValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{emailValid}</div>) }
-                            </>
-                        )
-                    }
+                        {
+                            formSubmitted && (
+                                <>
+                                    { displayNameValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{displayNameValid}</div>) }
+                                    { passwordValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{passwordValid}</div>) }
+                                    { emailValid && (<div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{emailValid}</div>) }
+                                </>
+                            )
+                        }
 
 
-                    <button className='auth-btn' type="submit">Registrarse</button>
-                </form>
+                        <button className='auth-btn' type="submit">Registrarse</button>
+                    </form>
 
-                <button className='auth-btn' onClick={onGoogleSignIn}>< FcGoogle className='googleicon' />Registrate con Google</button>
+                    <button className='auth-btn' onClick={onGoogleSignIn}>< FcGoogle className='googleicon' />Registrate con Google</button>
 
-                <p id='login-d2-forg'>¿Ya tienes cuenta? <br /> Inicia sesión <Link to="auth/login">aquí</Link></p>
+                    <p id='login-d2-forg'>¿Ya tienes cuenta? <br /> Inicia sesión <Link to="auth/login">aquí</Link></p>
+                </div>
             </div>
         </div>
     )

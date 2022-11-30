@@ -3,13 +3,14 @@ import { BiEdit } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { SidebarMyExams, SidebarSavedExams } from "./";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../../../store/auth/thunks";
 
 
 export const Sidebar = () => {
 
     const dispatch = useDispatch()
+    const { displayName, photoURL } = useSelector( s => s.auth  )
 
     const onLogout = () => {
         dispatch(startLogout())
@@ -26,8 +27,8 @@ export const Sidebar = () => {
             <div className="aheader">
                 
                 <div className="aheader-account">
-                    <img src="/public/logo.png" alt="" />
-                    <p>Javier Orozco</p>
+                    <img src={photoURL} alt="" />
+                    <p>{displayName}</p>
                 </div>
 
                 <div className="aheader-opt">

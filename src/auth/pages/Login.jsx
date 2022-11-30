@@ -37,52 +37,54 @@ export const Login = () => {
             </div>
 
             <div id='login-d2'>
-                <p id='login-d2-title'>Iniciar sesión</p>
-                <form onSubmit={onSubmit}>
-                    <input
-                        type="email"
-                        placeholder='Correo'
-                        name='email'
-                        value={email}
-                        onChange={onInputChange}
-                    />
-                    <input
-                        type="password"
-                        placeholder='Contraseña'
-                        name='password'
-                        value={password}
-                        onChange={onInputChange}
-                    />
+                <div className='login-formcontainer animate__animated animate__fadeIn'>
+                    <p id='login-d2-title'>Iniciar sesión</p>
+                    <form onSubmit={onSubmit}>
+                        <input
+                            type="email"
+                            placeholder='Correo'
+                            name='email'
+                            value={email}
+                            onChange={onInputChange}
+                        />
+                        <input
+                            type="password"
+                            placeholder='Contraseña'
+                            name='password'
+                            value={password}
+                            onChange={onInputChange}
+                        />
 
-                    {
-                        (errorMessage) 
-                        ? ( <div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{errorMessage}</div>)
-                        : ''
-                    }
+                        {
+                            (errorMessage) 
+                            ? ( <div className="auth-error-msg animate__animated animate__fadeIn"><BiErrorAlt className='auth-error-icon' />{errorMessage}</div>)
+                            : ''
+                        }
 
-                    {/* =======Boton login========= */}
+                        {/* =======Boton login========= */}
+                        <button
+                            className='auth-btn'
+                            type="submit"
+                            name='password'
+                        >
+                            Entrar
+                        </button>
+                    </form>
+
+
+                    {/*===Boton registrarse con GOOGLE===*/}
                     <button
                         className='auth-btn'
-                        type="submit"
-                        name='password'
+                        onClick={onGoogleSignIn}
                     >
-                        Entrar
+                        <FcGoogle className='googleicon' />Inicia sesión con Google
                     </button>
-                </form>
 
+                    {/*======== Boton registrate========== */}
+                    <button className='auth-btn' onClick={() => navigate("/auth/register")}>Regístrate</button>
 
-                {/*===Boton registrarse con GOOGLE===*/}
-                <button
-                    className='auth-btn'
-                    onClick={onGoogleSignIn}
-                >
-                    <FcGoogle className='googleicon' />Inicia sesión con Google
-                </button>
-
-                {/*======== Boton registrate========== */}
-                <button className='auth-btn' onClick={() => navigate("/auth/register")}>Regístrate</button>
-
-                <p id='login-d2-forg'>¿Olvidaste tu contraseña? <br /> Haz clic <a href="#">aquí</a></p>
+                    <p id='login-d2-forg'>¿Olvidaste tu contraseña? <br /> Haz clic <a href="#">aquí</a></p>
+                </div>
             </div>
         </div>
     )
