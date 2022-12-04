@@ -3,6 +3,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export const SidebarMyExams = ({ myExams, setModalMyExams }) => {
+
+    const navigateExam = () => {        
+    }
     return (
         <div className="animate__animated animate__fadeInLeft">
 
@@ -15,8 +18,8 @@ export const SidebarMyExams = ({ myExams, setModalMyExams }) => {
 
             {
                 myExams.map(e => (
-                    <div className="abody-card" key={e}>
-                        <div className="abody-cardinf">
+                    <div className="abody-card" key={e} onClick={navigateExam}>
+                        <div className="abody-cardinf" >
                             <div className="abody-cardled" />
                             <p>{e}</p>
                         </div>
@@ -34,7 +37,7 @@ export const SidebarMyExams = ({ myExams, setModalMyExams }) => {
                 )
             }
 
-            <Link className="abody-newexam">Crear nuevo examen</Link>
+            <Link className="abody-newexam" to='/newexam'>Crear nuevo examen</Link>
         </div>
     )
 }

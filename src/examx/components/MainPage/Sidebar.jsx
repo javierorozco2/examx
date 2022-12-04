@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SidebarMyExams, SidebarSavedExams } from "./";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../../../store/auth/thunks";
+import { shortName } from "../../helpers/shortName";
 
 
 export const Sidebar = () => {
@@ -28,7 +29,7 @@ export const Sidebar = () => {
                 
                 <div className="aheader-account">
                     <img src={photoURL} alt="" />
-                    <p>{displayName}</p>
+                    <p>{shortName(displayName, 15)}</p>
                 </div>
 
                 <div className="aheader-opt">
