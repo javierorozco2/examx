@@ -6,8 +6,9 @@ export const examxSlice = createSlice({
         myExams: [],
         savedExams: [],
         editExam: false,
-        examActiveEdit: {},
-        errorMsj: ''
+        errorMsj: '',
+        isloading: false,
+        examActiveEdit: {}
     },
     reducers: {
         setExamActiveEdit: (state, action) =>{
@@ -29,7 +30,7 @@ export const examxSlice = createSlice({
         },
 
         addNewEmptyQuestion: ( {examActiveEdit}) =>{
-
+            
             //Agregar nueva pregunta 
             examActiveEdit.quest.push({
                 titleQuest: '',
@@ -61,7 +62,31 @@ export const examxSlice = createSlice({
 
             // Asignar respuesta correcta
             examActiveEdit.quest[payload.questId].resp[payload.respId].isCorrect = !payload.value
+        },
+
+        setDescription: ( state, {payload} ) => {
+            console.log(payload.target.value);
+
+        },
+
+        setLoading: (state, {payload}) => {
+            state.isloading = true
+        },
+
+        setNoLoading: (state, {payload}) => {
+            state.isloading = false
+        },
+
+        setuid: (state, {payload}) => {
+            state.examActiveEdit.uid = payload.uid
+            state.examActiveEdit.createdAt = payload.date
+        },
+
+        onEditExam: (state, {payload}) => {
+            state.editExam = payload
         }
+
+
     }
 });
 
@@ -75,5 +100,10 @@ export const {
     addNewEmptyQuestion,
     deleteQuest,
     removeAnswer,
-    changeCorrectAnsw
+    changeCorrectAnsw,
+    setDescription,
+    setLoading,
+    setNoLoading,
+    setuid,
+    onEditExam
 } = examxSlice.actions;

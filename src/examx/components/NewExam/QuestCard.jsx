@@ -1,31 +1,84 @@
-import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi"
+import { BiRadioCircle, BiRadioCircleMarked, BiTrash } from "react-icons/bi"
+import { AiOutlineLeft, AiOutlineClose } from 'react-icons/ai';
+import { addNewEmptyAnswer, changeCorrectAnsw, changeRespQuest, changeTitleQuest, deleteQuest, removeAnswer } from "../../../store/examx/examxSlices";
+import { useDispatch } from "react-redux";
 
-export const QuestCard = ( onArrayInputChange, data) => {
-    
-    const { onArrayInputChange: a } = onArrayInputChange 
+export const QuestCard = ({id, titleQuest, resp}) => {
+
+    const dispatch = useDispatch()
+
+    const onTitleInputChange = (id, data) => {
+        const { value } = data.target
+        dispatch(changeTitleQuest({ id, value }))
+    }
+
+    const handleCorrectAnsw = (value, questId, respId) => {
+        dispatch(changeCorrectAnsw({value, questId, respId}))
+    }
+
+    const onRespInputChange = (info, respId, questId) => {
+        const { value } = info.target
+        dispatch(changeRespQuest({ value, respId, questId }))
+
+    }
 
     return (
-        <div className="ne-qst" key={data.id}>
+        <div className="ne-qst animate__animated animate__fadeIn" key={id}>
             <div className="ne-qst-title">
-                <div className="ne-qst-number">{data.id}</div>
+                <div className="ne-qst-number">{id + 1}</div>
                 <input
                     type="text"
                     placeholder='Ingresa una pregunta'
-                    value={data.titleQuest}
-                    onChange={a(data.id)}
+                    value={titleQuest}
+                    onChange={(data) => onTitleInputChange(id, data)}
                 />
+                <div className="ne-qst-delete">
+                    <button onClick={() => dispatch(deleteQuest(id))}>
+                        <BiTrash />
+                    </button>
+                </div>
             </div>
 
             <div className="ne-qst-resp">
-                {/*- - - -AQUI SE USARA UN MAP- - -*/}
-                {/*-*/}<div className="ne-qst-respe">
-                    {/*-*/}    <BiRadioCircle className='ne-qst-micon' /> {/*Icono interactivo: depende si es resp correcta o no*/}
-                    {/*-*/}    <input type="text" placeholder='Ingresa una respuesta' />
-                    {/*-*/}</div>
-                {/*- - - - - - - - - - - - - - - - -*/}
+
+                {
+                    resp.map(({ text, isCorrect }, key) => (
+
+                        <div className="ne-qst-respe animate__animated animate__fadeIn" key={key}>
+
+                            {isCorrect
+                                ? <BiRadioCircleMarked
+                                    onClick={() => handleCorrectAnsw(isCorrect, id, key)}
+                                    className='ne-qst-micon'
+                                />
+                                : <BiRadioCircle
+                                    onClick={() => handleCorrectAnsw(isCorrect, id, key)}
+                                    className='ne-qst-micon'
+                                />
+                            }
+                            <input
+                                type="text"
+                                placeholder='Ingresa una respuesta'
+                                value={text}
+                                onChange={(data) => onRespInputChange(data, key, id)}
+                            />
+
+                            <div className="ne-qst-tools">
+                                {/* <button>
+                                <BiImageAdd />
+                            </button> */}
+
+                                <button onClick={() => dispatch(removeAnswer({ id, key }))}>
+                                    <AiOutlineClose />
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                }
+
             </div>
 
-            <button className='ne-masresp' >+Respuesta</button>
+            <button className='ne-masresp' onClick={() => dispatch(addNewEmptyAnswer(id))}>+Respuesta</button>
         </div>
     )
 }

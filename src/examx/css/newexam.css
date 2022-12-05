@@ -82,7 +82,7 @@ body{
     justify-content: center;
 }
 
-.ne-navactions button{
+.ne-navactions button, .ne-sm-input{
     padding: 5px 18px;
     border-radius: 5px;
     cursor: pointer;
@@ -94,7 +94,7 @@ body{
 
 }
 
-.ne-navactions button:nth-child(1){
+.ne-navactions button:nth-child(1), .ne-sm-input{
     color: var(--blue-color);
     border: 1px solid var(--blue-color);
     background-color: rgba( 0, 0, 0, 0);
@@ -106,7 +106,7 @@ body{
     background-color: rgba( 0, 0, 0, 0);
 }
 
-.ne-navactions button:hover:nth-child(1){
+.ne-navactions button:hover:nth-child(1), .ne-sm-input:hover{
     background-color: var(--blue-color);
     color: #fff;
     box-shadow: 1px 1px 9px -1px rgba( 0, 0, 0, .2);
@@ -290,6 +290,136 @@ body{
 
 .ne-masresp:hover{
     border-bottom: 1px solid var(--blue-color);
+}
+
+/* ----------MODAL--------- */
+.no-scroll{
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.ne-sm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgba( 0, 0, 0, .3);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.ne-sm-container{
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 560px;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.ne-sm-title{
+    box-shadow: 1px 1px 9px -1px rgba( 0, 0, 0, .5);
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    background-color: var(--element-color);
+}
+
+.ne-sm-title h2{
+    color: #fff;
+    font-weight: lighter;
+    margin-bottom: 5px;
+}
+
+.ne-sm-title button{
+    align-items: center;
+    align-self: flex-start;
+    background-color: rgba( 0, 0, 0, 0);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.ne-sm-form{
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+}
+
+.ne-sm-form p, .ne-sm-checkbox label{
+    font-size: 16px;
+    color: rgba( 0, 0, 0, .6);
+    margin-bottom: 5px;
+}
+
+.ne-sm-form input[type='text'], .ne-sm-form textarea{
+    border: 1px solid rgba( 0, 0, 0, .2);
+    padding: 10px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    resize: none;
+    margin-bottom: 5px;
+}
+
+.ne-sm-form input[type='text']:focus,  .ne-sm-form textarea:focus{
+    outline: none;
+    border: 1px solid var(--blue-color);
+}
+
+.ne-sm-alumnlist{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.ne-sm-alelement{
+    background-color: var(--blue-color);
+    color: #fff;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 3px 5px;
+    font-size: 14px;
+    box-shadow: 1px 1px 9px -1px rgba( 0, 0, 0, .2);
+    cursor: pointer;
+}
+
+.ne-sm-checkbox{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ne-sm-checkbox label{
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.ne-sm-checkbox input[type='checkbox']{
+    border: 1px solid rgba( 0, 0, 0, .2);
+    background-color: aquamarine;
+    margin-right: 10px;
+}
+
+.ne-sm-input{
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    width: 100px;
+    margin: 0 auto;
+    font-size: 14px;
 }
 
 /* ---------RESPONSIVE-------- */
