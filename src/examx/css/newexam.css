@@ -120,15 +120,16 @@ body{
 
 /* =========Body========== */
 .ne-body{
-    margin: 0 20%;
+    margin: 0 auto;
 }
 
 .ne-qst{
+    width: 600px;
     margin-top: 12px;
     background-color: #fff;
     box-shadow: 1px 1px 9px -1px rgba( 0, 0, 0, .2);
-    border-radius: 10px;
-    padding: 30px 5%;
+    border-radius: 5px;
+    padding: 20px 40px;
     display: flex;
     flex-direction: column;
 }
@@ -159,6 +160,36 @@ body{
     border-bottom: 1px solid var(--blue-color);
 }
 
+.ne-qst-delete{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.ne-qst-delete button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 20px;
+    height: 20px; */
+    padding: 8px;
+    cursor: pointer;
+    background-color: rgba( 0, 0, 0, 0);
+    box-shadow: 0 0 5px -1px rgba(255, 0, 0, 0.5);
+    border-radius: 50%;
+    font-size: 18px;
+    border: none;
+    color: rgba(255, 0, 0, 0.5);
+    transition: .2s background-color ease,
+                .2s color ease;
+}
+
+.ne-qst-delete button:hover{
+    background-color: rgba(255, 0, 0, 0.5);
+    color: #fff;
+    border-radius: 50%;
+
+}
+
 .ne-qst-resp{
     display: flex;
     flex-direction: column;
@@ -171,7 +202,7 @@ body{
     align-items: center;
     margin-top: 15px;
     border: 1px solid rgba( 0, 0, 0, .2);
-    padding: 7px 15px;
+    padding: 0px 15px;
     border-radius: 7px;
 }
 
@@ -179,20 +210,48 @@ body{
     border: none;
     font-size: 14px;
     width: 100%;
+    height: 30px;
 }
 
 .ne-qst-respe input:focus{
     outline: none;
 }
 
+.ne-qst-tools{
+    display: flex;
+    align-items: center;
+}
+
+.ne-qst-tools button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    background-color: rgba( 0, 0, 0, 0);
+    border: none;
+    font-size: 20px;
+    border-radius: 50%;
+    color: var(--blue-color);
+    cursor: pointer;
+    transition: .2s background-color ease,
+                .2s color ease;
+}
+
+.ne-qst-tools button:hover{
+    background-color: var(--blue-color);
+    color: #fff;
+}
 .ne-qst-micon{
     font-size: 20px;
     color: var(--blue-color);
     margin-right: 5px;
+    cursor: pointer;
 }
 
 .ne-actbuttons{
-    margin-top: 20px;
+    margin: 20px 0 100px 0;
 }
 
 .ne-actbuttons button{
@@ -263,6 +322,10 @@ body{
     .ne-body{
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    .ne-qst{
+        width: auto;
     }
 
     .ne-qst-title{

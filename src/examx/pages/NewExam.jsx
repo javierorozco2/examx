@@ -1,36 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { AiOutlineLeft } from 'react-icons/ai';
-import { BsFillBookmarksFill } from "react-icons/bs"
-import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi"
-import '../css/newexam.css'
-import { shortName } from '../helpers/shortName';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { addNewEmptyQuestion, changeRespQuest, changeTitleQuest, setExamActiveEdit } from '../../store/examx/examxSlices';
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
+import { AiOutlineLeft, AiOutlineClose } from 'react-icons/ai';
+import { BsFillBookmarksFill } from "react-icons/bs"
+import { BiRadioCircle, BiRadioCircleMarked, BiTrash } from "react-icons/bi"
+import { shortName } from '../helpers/shortName';
+import { addNewEmptyAnswer, addNewEmptyQuestion, changeCorrectAnsw, changeRespQuest, changeTitleQuest, deleteQuest, removeAnswer, setExamActiveEdit } from '../../store/examx/examxSlices';
+
+import '../css/newexam.css'
 
 const initialForm = {
     title: '',
     quest: [
         {
-            id: 0,
             titleQuest: '',
             resp: [
                 {
-                    text: '5',
-                    isCorrect: false
-                },
-                {
-                    text: '4',
-                    isCorrect: false
-                }
-            ]
-        },
-        {
-            id: 1,
-            titleQuest: '',
-            resp: [
-                {
-                    text: '2',
+                    text: '',
                     isCorrect: true
                 }
             ]
@@ -41,6 +28,7 @@ const initialForm = {
 export const NewExam = () => {
 
     const [formState, setFormState] = useState(initialForm)
+    const [saveModal, setSaveModal] = useState(false)
     const { title } = formState
 
     const { photoURL, displayName } = useSelector(state => state.auth)
@@ -55,28 +43,22 @@ export const NewExam = () => {
 
     const onRespInputChange = (info, respId, questId) => {
         const { value } = info.target
-        dispatch( changeRespQuest({value, respId, questId}))
-        
+        dispatch(changeRespQuest({ value, respId, questId }))
+
     }
 
     const onTitleInputChange = (id, data) => {
         const { value } = data.target
-
         dispatch(changeTitleQuest({ id, value }))
     }
 
-    const onAddQuestion = (id) => {
-        dispatch( addNewEmptyQuestion(id) )
-    }
-
-    const previousPage = () => {
-        navigate(-1)
+    const handleCorrectAnsw = (value, questId, respId) => {
+        dispatch(changeCorrectAnsw({value, questId, respId}))
     }
 
     useEffect(() => {
         dispatch(setExamActiveEdit(formState))
     }, [formState])
-
 
     return (
         <div className='newexam'>
@@ -84,7 +66,7 @@ export const NewExam = () => {
             {/* =========Navegación========== */}
             <div className='ne-nav'>
                 <div className="ne-navprof">
-                    <button onClick={previousPage}><AiOutlineLeft /></button>
+                    <button onClick={ () => navigate(-1)}><AiOutlineLeft /></button>
                     <img src={photoURL} alt="" />
                     <p>{shortName(displayName, 13)}</p>
                 </div>
@@ -101,7 +83,7 @@ export const NewExam = () => {
                 </div>
 
                 <div className="ne-navactions">
-                    <button>Guardar</button>
+                    <button onClick={() => setSaveModal(true)}>Guardar</button>
                     <button>Publicar</button>
                 </div>
             </div>
@@ -109,9 +91,10 @@ export const NewExam = () => {
             {/* ============Body============= */}
             <div className="ne-body">
 
-                {examActiveEdit.quest?.map(({ id, titleQuest, resp }) => (
+                {/* {examActiveEdit.quest?.map(({ titleQuest, resp }, key ) => ( */}
+                {examActiveEdit.quest?.map(({ titleQuest, resp }, id = key) => (
 
-                    <div className="ne-qst" key={id}>
+                    <div className="ne-qst animate__animated animate__fadeIn" key={id}>
                         <div className="ne-qst-title">
                             <div className="ne-qst-number">{id + 1}</div>
                             <input
@@ -120,6 +103,11 @@ export const NewExam = () => {
                                 value={titleQuest}
                                 onChange={(data) => onTitleInputChange(id, data)}
                             />
+                            <div className="ne-qst-delete">
+                                <button onClick={() => dispatch(deleteQuest(id))}>
+                                    <BiTrash />
+                                </button>
+                            </div>
                         </div>
 
                         <div className="ne-qst-resp">
@@ -127,31 +115,47 @@ export const NewExam = () => {
                             {
                                 resp.map(({ text, isCorrect }, key) => (
 
-                                    <div className="ne-qst-respe" key={key}>
+                                    <div className="ne-qst-respe animate__animated animate__fadeIn" key={key}>
 
-                                        {   isCorrect 
-                                            ? <BiRadioCircleMarked className='ne-qst-micon' />
-                                            : <BiRadioCircle className='ne-qst-micon' />
+                                        {isCorrect
+                                            ? <BiRadioCircleMarked
+                                                onClick={() => handleCorrectAnsw(isCorrect, id, key)}
+                                                className='ne-qst-micon'
+                                            />
+                                            : <BiRadioCircle
+                                                onClick={() => handleCorrectAnsw(isCorrect, id, key)}
+                                                className='ne-qst-micon'
+                                            />
                                         }
-                                        <input 
+                                        <input
                                             type="text"
                                             placeholder='Ingresa una respuesta'
                                             value={text}
-                                            onChange = { (data) => onRespInputChange( data, key, id)}
+                                            onChange={(data) => onRespInputChange(data, key, id)}
                                         />
+
+                                        <div className="ne-qst-tools">
+                                            {/* <button>
+                                                <BiImageAdd />
+                                            </button> */}
+
+                                            <button onClick={ () => dispatch(removeAnswer({id, key}))}>
+                                                <AiOutlineClose/>
+                                            </button>
+                                        </div>
                                     </div>
                                 ))
                             }
 
                         </div>
 
-                        <button className='ne-masresp' onClick={ () => onAddQuestion(id) }>+Respuesta</button>
+                        <button className='ne-masresp' onClick={() => dispatch(addNewEmptyAnswer(id))}>+Respuesta</button>
                     </div>
                 ))}
 
                 <div className="ne-actbuttons">
-                    <button>+Pregunta abierta</button>
-                    <button>+Pregunta cerrada</button>
+                    <button onClick={ () => dispatch(addNewEmptyQuestion())}>+Pregunta cerrada</button>
+                    {/* <button>+Pregunta abierta</button> EN CONSTRUCCIÓN */}
                 </div>
             </div>
         </div>
