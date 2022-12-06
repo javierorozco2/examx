@@ -7,6 +7,7 @@
 .main-sb{
     flex: 2;
     background-color: var(--element-color);
+
 }
 
 .main-search{
@@ -41,6 +42,10 @@
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
+}
+
+.sandwichbutton{
+    display: none;
 }
 
 .aheader-account{
@@ -316,3 +321,60 @@
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, .3);
 }
 
+@media (max-width: 800px) {
+    .main-container{
+        flex-direction: column;
+    }
+
+    .sandwichbutton{
+        display: block;
+        margin-right: 10px;
+        background-color: rgba(0, 0, 0, .0);
+        color: rgba(255, 255, 255, .5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .main-sb{
+        position: relative;
+    }
+
+    .asidevisible{
+        display: none;
+    }
+
+    .ovw-button{
+        position: relative;
+        top: 0;
+        width: 100%;
+        margin-bottom: 50px;
+        margin-top: 10px;
+    }
+
+    /* .main-ovw{
+        border-top: 2px dashed rgba(0, 0, 0, 0.1);
+        padding-top: 20px;
+    } */
+
+    .main-search{
+        background-color: var(--element-color);
+        margin: 0;
+        padding: 20px 10px;
+    }
+
+    .s-icons{
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .s-card{
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .s-cardinf p{
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
