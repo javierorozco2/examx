@@ -1,13 +1,11 @@
-import { onEditExam, setLoading, setNoLoading } from "./examxSlices"
+import { onEditExam, onEditExamDisable, setLoading, setNoLoading } from "./examxSlices"
 import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB } from "../../firebase/config"
-import { useNavigate } from "react-router-dom"
 
 export const publishExam = () => {
     return async(dispatch, getState) => {
         dispatch(setLoading())
 
-        const { uid } = getState().auth
         const { examActiveEdit } = getState().examx
 
         console.log(examActiveEdit);
@@ -15,7 +13,13 @@ export const publishExam = () => {
         const docRef = doc( collection(FirebaseDB, `examfrompage/examx/exam`))
         await setDoc( docRef, examActiveEdit )
 
+        dispatch( onEditExamDisable())
         dispatch(setNoLoading())
-        dispatch( onEditExam(true))
     }
 }
+
+// export const getExams = () => {
+//     return async(dispatch,getSate) =>{
+        
+//     }
+// }

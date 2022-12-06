@@ -1,4 +1,4 @@
-import { BiRadioCircle, BiRadioCircleMarked, BiTrash } from "react-icons/bi"
+import { BiImageAdd, BiRadioCircle, BiRadioCircleMarked, BiTrash } from "react-icons/bi"
 import { AiOutlineLeft, AiOutlineClose } from 'react-icons/ai';
 import { addNewEmptyAnswer, changeCorrectAnsw, changeRespQuest, changeTitleQuest, deleteQuest, removeAnswer } from "../../../store/examx/examxSlices";
 import { useDispatch } from "react-redux";
@@ -64,9 +64,9 @@ export const QuestCard = ({id, titleQuest, resp}) => {
                             />
 
                             <div className="ne-qst-tools">
-                                {/* <button>
+                                <button>
                                 <BiImageAdd />
-                            </button> */}
+                            </button>
 
                                 <button onClick={() => dispatch(removeAnswer({ id, key }))}>
                                     <AiOutlineClose />

@@ -84,6 +84,10 @@ export const examxSlice = createSlice({
 
         onEditExam: (state, {payload}) => {
             state.editExam = payload
+        },
+
+        onEditExamDisable: (state) => {
+            state.editExam = false
         }
 
 
@@ -105,5 +109,6 @@ export const {
     setLoading,
     setNoLoading,
     setuid,
-    onEditExam
+    onEditExam,
+    onEditExamDisable
 } = examxSlice.actions;
