@@ -11,78 +11,79 @@ export const examxSlice = createSlice({
         examActiveEdit: {}
     },
     reducers: {
-        setExamActiveEdit: (state, action) =>{
+        setExamActiveEdit: (state, action) => {
             state.examActiveEdit = action.payload
         },
 
-        changeTitleQuest: (state, action) =>{
-            state.examActiveEdit.quest[action.payload.id].titleQuest = action.payload.value
+        changeTitleQuest: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.secid].quest[payload.id].titleQuest = payload.value
         },
 
-        changeRespQuest: (state, {payload}) =>{
-            console.log(payload.value);
-            state.examActiveEdit.quest[payload.questId].resp[payload.respId].text = payload.value
+        changeRespQuest: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].text = payload.value
         },
 
-        addNewEmptyAnswer: ( state, {payload}) =>{
-            // console.log(state.examActiveEdit.quest[payload].resp);
-            state.examActiveEdit.quest[payload].resp.push({ text: '', isCorrect: false})
+        addNewEmptyAnswer: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.secid].quest[payload.id].resp.push({
+                text: '',
+                isCorrect: false
+            })
         },
 
-        addNewEmptyQuestion: ( {examActiveEdit}) =>{
-            
+        addNewEmptyQuestion: ({ examActiveEdit }, { payload }) => {
+
             //Agregar nueva pregunta 
-            examActiveEdit.quest.push({
+            examActiveEdit.sections[payload.secid].quest.push({
                 titleQuest: '',
-                resp:[{
+                resp: [{
                     text: '',
                     isCorrect: true
                 }]
             })
         },
 
-        deleteQuest: ( state, {payload} ) =>{
-            state.examActiveEdit.quest.splice(payload,1)
+        deleteQuest: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.secid].quest.splice(payload.id, 1)
         },
 
-        removeAnswer: (state, {payload}) => {
-            state.examActiveEdit.quest[payload.id].resp.splice(payload.key,1)
+        removeAnswer: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.secid].quest[payload.id].resp.splice(payload.key, 1)
         },
 
-        changeCorrectAnsw: ( {examActiveEdit}, {payload} ) =>{
+        changeCorrectAnsw: ({ examActiveEdit }, { payload }) => {
             //limpiar todas las respuestas
-            examActiveEdit.quest[payload.questId].resp.map((q) =>{
-                if(q.isCorrect){
+            examActiveEdit.sections[payload.secid].quest[payload.questId].resp.map((q) => {
+                if (q.isCorrect) {
                     q.isCorrect = false
                     return q
-                }else{
+                } else {
                     return q
                 }
             })
 
             // Asignar respuesta correcta
-            examActiveEdit.quest[payload.questId].resp[payload.respId].isCorrect = !payload.value
+            examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].isCorrect = !payload.value
         },
 
-        setDescription: ( state, {payload} ) => {
+        setDescription: (state, { payload }) => {
             console.log(payload.target.value);
 
         },
 
-        setLoading: (state, {payload}) => {
+        setLoading: (state, { payload }) => {
             state.isloading = true
         },
 
-        setNoLoading: (state, {payload}) => {
+        setNoLoading: (state, { payload }) => {
             state.isloading = false
         },
 
-        setuid: (state, {payload}) => {
+        setuid: (state, { payload }) => {
             state.examActiveEdit.uid = payload.uid
             state.examActiveEdit.createdAt = payload.date
         },
 
-        onEditExam: (state, {payload}) => {
+        onEditExam: (state, { payload }) => {
             state.editExam = payload
         },
 
@@ -91,8 +92,39 @@ export const examxSlice = createSlice({
 
         },
 
-        setPublished: (state) =>{
+        setPublished: (state) => {
             state.examActiveEdit.isPublished = true
+        },
+
+        setSectionTitle: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.id].title = payload.value
+        },
+
+        setSectionDesc: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections[payload.id].desc = payload.value
+        },
+
+        addNewSection: ({ examActiveEdit }, { payload }) => {
+            examActiveEdit.sections.push({
+                title: '',
+                desc: '',
+                quest: [
+                    {
+                        titleQuest: '',
+                        resp: [
+                            {
+                                text: '',
+                                isCorrect: true
+                            }
+                        ]
+                    },
+                ]
+            })
+
+        },
+
+        removeSection: ({examActiveEdit}, {payload}) => {
+            examActiveEdit.sections.splice(payload, 1)
         }
 
 
@@ -101,11 +133,11 @@ export const examxSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { 
-    setExamActiveEdit, 
+export const {
+    setExamActiveEdit,
     changeTitleQuest,
-    changeRespQuest, 
-    addNewEmptyAnswer, 
+    changeRespQuest,
+    addNewEmptyAnswer,
     addNewEmptyQuestion,
     deleteQuest,
     removeAnswer,
@@ -116,5 +148,9 @@ export const {
     setuid,
     onEditExam,
     onEditExamDisable,
-    setPublished
+    setPublished,
+    setSectionTitle,
+    setSectionDesc,
+    addNewSection,
+    removeSection
 } = examxSlice.actions;

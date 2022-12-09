@@ -123,6 +123,76 @@ body{
     margin: 0 auto;
 }
 
+.ne-section{
+
+    background-color: #fff;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.ne-section-contitle{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.ne-section-contitle svg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    margin-right: 5px;
+    color: rgba( 0, 0, 0, .3);
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    transition: .2s color ease;
+}
+
+.ne-section-contitle svg:hover{
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.ne-section-title{
+    width: 100%;
+    margin: 0 10px;
+    padding: 2px 5px;
+    font-size: 18px;
+    color: rgba( 0, 0, 0, .7);
+    border: none;
+    border-left: 2px solid rgba( 0, 0, 0, .2);
+    transition: .5s border-left ease;
+}
+
+.ne-section-title:focus, .ne-section-title:hover{
+    outline: none;
+    border-left: 2px solid var(--blue-color);
+}
+
+.ne-section-desc{
+    margin: 0 10px;
+    /* border-radius: 5px; */
+    resize: none;
+    padding: 2px 5px;
+    font-size: 14px;
+    border: none;
+    border-left: 2px solid rgba( 0, 0, 0, .1);
+    transition: .5s border-left ease;
+
+}
+
+.ne-section-desc:focus, .ne-section-desc:hover{
+    /* border: none; */
+    outline: none;
+    border-left: 2px solid var(--blue-color);
+}
+
 .ne-qst{
     width: 600px;
     margin-top: 12px;
@@ -251,7 +321,7 @@ body{
 }
 
 .ne-actbuttons{
-    margin: 20px 0 100px 0;
+    margin: 20px 0 5px 0;
 }
 
 .ne-actbuttons button{
@@ -266,6 +336,13 @@ body{
                 .2s color ease;
 }
 
+.ne-actbuttons-sec button{
+    background-color: var(--element-color);
+    margin-bottom: 100px;
+}
+
+
+
 .ne-actbuttons button:nth-child(1){
     margin-right: 5px;
 }
@@ -275,6 +352,11 @@ body{
     color: var(--blue-color);
     border: 1px solid var(--blue-color);
     box-shadow: 1px 1px 9px -1px rgba( 0, 0, 0, .2);
+}
+
+.ne-actbuttons-sec button:hover{
+    border: 1px solid var(--element-color);
+    color: var(--element-color);
 }
 
 .ne-masresp{

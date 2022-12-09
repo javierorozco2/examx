@@ -2,14 +2,35 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
-import { AiOutlineLeft } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineLeft } from 'react-icons/ai';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { shortName } from '../helpers/shortName';
-import { addNewEmptyQuestion, onEditExam, setExamActiveEdit } from '../../store/examx/examxSlices';
+import { addNewEmptyQuestion, addNewSection, onEditExam, removeSection, setExamActiveEdit, setSectionDesc, setSectionTitle } from '../../store/examx/examxSlices';
 
 import '../css/newexam.css'
 import { QuestCard } from '../components/NewExam/QuestCard';
 import { SaveExamModal } from '../components/NewExam/SaveExamModal';
+
+// const initialForm = {
+//     uid: '',
+//     createdAt: '',
+//     title: '',
+//     isEGEL: false,
+//     egelRqst: false,
+//     desc: '',
+//     isPublished: false,
+//     quest: [
+//         {
+//             titleQuest: '',
+//             resp: [
+//                 {
+//                     text: '',
+//                     isCorrect: true
+//                 }
+//             ]
+//         },
+//     ]
+// }
 
 const initialForm = {
     uid: '',
@@ -19,36 +40,43 @@ const initialForm = {
     egelRqst: false,
     desc: '',
     isPublished: false,
-    quest: [
+    sections: [
         {
-            titleQuest: '',
-            resp: [
+            title: '',
+            desc: '',
+            quest: [
                 {
-                    text: '',
-                    isCorrect: true
-                }
+                    titleQuest: '',
+                    resp: [
+                        {
+                            text: '',
+                            isCorrect: true
+                        }
+                    ]
+                },
             ]
-        },
+        }
     ]
+
 }
 
 export const NewExam = () => {
 
     const [formState, setFormState] = useState(initialForm)
     const [saveModal, setSaveModal] = useState(false)
-    const { title, desc, egelRqst} = formState
+    const { title, desc, egelRqst } = formState
 
     const { photoURL, displayName } = useSelector(state => state.auth)
     const { examActiveEdit, isloading } = useSelector(state => state.examx)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const activeModal = () =>{
+    const activeModal = () => {
 
         setSaveModal(true)
         document.body.classList.add('no-scroll');
 
-        
+
         // document.querySelector('#activar').addEventListener('click', e => {
         //     // Quitar clase para permitir desplazamiento
         //     document.body.classList.remove('no-scroll');
@@ -56,14 +84,25 @@ export const NewExam = () => {
     }
 
     const onInputChange = ({ target }) => {
-        
+
         const { name, value, checked } = target
 
-        {   value === 'on' 
-            ? setFormState({ ...examActiveEdit, [name]: checked })
-            : setFormState({ ...examActiveEdit, [name]: value }) 
+        {
+            value === 'on'
+                ? setFormState({ ...examActiveEdit, [name]: checked })
+                : setFormState({ ...examActiveEdit, [name]: value })
         }
-        
+
+    }
+
+    const onHandleTitleSec = (data, id) => {
+        const { value } = data.target
+        dispatch(setSectionTitle({ value, id }))
+    }
+
+    const onHandleDescSec = (data, id) => {
+        const { value } = data.target
+        dispatch(setSectionDesc({ value, id }))
     }
 
     useEffect(() => {
@@ -75,14 +114,14 @@ export const NewExam = () => {
         dispatch(onEditExam(true))
     }, [])
 
-    
+
     return (
         <div className='newexam'>
 
             {/* =========Navegación========== */}
             <div className='ne-nav'>
                 <div className="ne-navprof">
-                    <button onClick={ () => navigate(-1)}><AiOutlineLeft /></button>
+                    <button onClick={() => navigate(-1)}><AiOutlineLeft /></button>
                     <img src={photoURL} alt="" />
                     <p>{shortName(displayName, 13)}</p>
                 </div>
@@ -101,35 +140,71 @@ export const NewExam = () => {
 
                 {/* Boton guardar examen y publicar */}
                 <div className="ne-navactions">
-                    {/* <button>Guardar</button> <========Deshabilitado temporalmente*/} 
-                    <button  onClick={activeModal}>Publicar</button>
+                    {/* <button>Guardar</button> <========Deshabilitado temporalmente*/}
+                    <button onClick={activeModal}>Publicar</button>
                 </div>
             </div>
 
             {/* ============Body============= */}
             <div className="ne-body">
-                
-                {examActiveEdit.quest?.map((dat, id = key) => (
 
-                    <QuestCard key={id} id={id} { ...dat }/>
+                {
+                    examActiveEdit.sections?.map((info, secid = key) => (
+                        <div className="ne-section" key={secid}>
 
-                ))}
+                            <div className='ne-section-contitle'>
+                                <input
+                                    placeholder='Ingresa un titulo de sección'
+                                    className="ne-section-title"
+                                    value={info.title}
+                                    onChange={(e) => onHandleTitleSec(e, secid)}
+                                />
+                                <AiOutlineClose onClick={() => dispatch(removeSection(secid))}/>
+                            </div>
 
-                <div className="ne-actbuttons">
-                    <button onClick={ () => dispatch(addNewEmptyQuestion())}>+Pregunta cerrada</button>
+                            <textarea
+                                placeholder="Ingresa una descripción de sección"
+                                cols="30"
+                                rows="2"
+                                name='desc'
+                                value={info.desc}
+                                onChange={(e) => onHandleDescSec(e, secid)}
+                                className="ne-section-desc"
+                            />
+
+                            {info.quest?.map((dat, id = key) => (
+
+                                <QuestCard secid={secid} key={id} id={id} {...dat} />
+
+                            ))}
+
+                            <div className="ne-actbuttons">
+                                <button onClick={() => dispatch(addNewEmptyQuestion({ secid }))}>+Pregunta cerrada</button>
+                                {/* <button>+Pregunta abierta</button> EN CONSTRUCCIÓN */}
+                            </div>
+                        </div>
+
+                    ))
+                }
+
+
+                <div className="ne-actbuttons ne-actbuttons-sec">
+                    <button onClick={() => dispatch(addNewSection())}>+Sección</button>
                     {/* <button>+Pregunta abierta</button> EN CONSTRUCCIÓN */}
                 </div>
+
             </div>
-            
+
+
             {
-                saveModal && <SaveExamModal 
-                                setSaveModal={setSaveModal}
-                                title={title}
-                                onInputChange={onInputChange}
-                                desc={desc}
-                                egelRqst={egelRqst}
-                                isloading={isloading}
-                            />
+                saveModal && <SaveExamModal
+                    setSaveModal={setSaveModal}
+                    title={title}
+                    onInputChange={onInputChange}
+                    desc={desc}
+                    egelRqst={egelRqst}
+                    isloading={isloading}
+                />
             }
         </div>
     )
