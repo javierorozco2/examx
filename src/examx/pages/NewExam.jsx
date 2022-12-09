@@ -18,6 +18,7 @@ const initialForm = {
     isEGEL: false,
     egelRqst: false,
     desc: '',
+    isPublished: false,
     quest: [
         {
             titleQuest: '',
@@ -100,7 +101,7 @@ export const NewExam = () => {
 
                 {/* Boton guardar examen y publicar */}
                 <div className="ne-navactions">
-                    <button>Guardar</button>
+                    {/* <button>Guardar</button> <========Deshabilitado temporalmente*/} 
                     <button  onClick={activeModal}>Publicar</button>
                 </div>
             </div>

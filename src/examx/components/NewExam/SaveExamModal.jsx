@@ -77,8 +77,8 @@ export const SaveExamModal = ({ setSaveModal, title, onInputChange, desc, egelRq
 
                     {
                         isloading 
-                        ? <button disabled className='ne-sm-input' type="submit">
-                            <BeatLoader color="#3A89C9" size={5} speedMultiplier={.5}/>
+                        ? <button disabled className='ne-sm-inputdisable' type="submit">
+                            <BeatLoader color="#888" size={5} speedMultiplier={.5}/>
                         </button>
                         : <button className='ne-sm-input' type="submit">Publicar</button>
                     }

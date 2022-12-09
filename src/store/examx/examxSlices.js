@@ -88,6 +88,11 @@ export const examxSlice = createSlice({
 
         onEditExamDisable: (state) => {
             state.editExam = false
+
+        },
+
+        setPublished: (state) =>{
+            state.examActiveEdit.isPublished = true
         }
 
 
@@ -110,5 +115,6 @@ export const {
     setNoLoading,
     setuid,
     onEditExam,
-    onEditExamDisable
+    onEditExamDisable,
+    setPublished
 } = examxSlice.actions;

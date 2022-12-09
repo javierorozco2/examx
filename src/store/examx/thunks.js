@@ -1,4 +1,4 @@
-import { onEditExam, onEditExamDisable, setLoading, setNoLoading } from "./examxSlices"
+import { onEditExam, onEditExamDisable, setLoading, setNoLoading, setPublished } from "./examxSlices"
 import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB } from "../../firebase/config"
 
@@ -15,11 +15,6 @@ export const publishExam = () => {
 
         dispatch( onEditExamDisable())
         dispatch(setNoLoading())
+        dispatch(setPublished())
     }
 }
-
-// export const getExams = () => {
-//     return async(dispatch,getSate) =>{
-        
-//     }
-// }

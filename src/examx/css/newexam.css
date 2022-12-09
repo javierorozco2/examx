@@ -82,7 +82,7 @@ body{
     justify-content: center;
 }
 
-.ne-navactions button, .ne-sm-input{
+.ne-navactions button, .ne-sm-input, .ne-sm-inputdisable{
     padding: 5px 18px;
     border-radius: 5px;
     cursor: pointer;
@@ -412,7 +412,7 @@ body{
     margin-right: 10px;
 }
 
-.ne-sm-input{
+.ne-sm-input, .ne-sm-inputdisable{
     position: absolute;
     bottom: 20px;
     left: 0;
@@ -420,6 +420,10 @@ body{
     width: 100px;
     margin: 0 auto;
     font-size: 14px;
+}
+
+.ne-sm-inputdisable{
+    cursor:auto;
 }
 
 /* ---------RESPONSIVE-------- */
