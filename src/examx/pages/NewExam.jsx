@@ -50,7 +50,8 @@ const initialForm = {
                     resp: [
                         {
                             text: '',
-                            isCorrect: true
+                            isCorrect: true,
+                            images: []
                         }
                     ]
                 },

@@ -1,7 +1,7 @@
-import { BiImageAdd, BiRadioCircle, BiRadioCircleMarked, BiTrash } from "react-icons/bi"
-import { AiOutlineClose } from 'react-icons/ai';
-import { addNewEmptyAnswer, changeCorrectAnsw, changeRespQuest, changeTitleQuest, deleteQuest, removeAnswer } from "../../../store/examx/examxSlices";
+import { BiTrash } from "react-icons/bi"
+import { addNewEmptyAnswer, changeTitleQuest, deleteQuest } from "../../../store/examx/examxSlices";
 import { useDispatch } from "react-redux";
+import { AnswCard } from "./AnswCard";
 
 export const QuestCard = ({secid, id, titleQuest, resp}) => {
 
@@ -11,18 +11,6 @@ export const QuestCard = ({secid, id, titleQuest, resp}) => {
     const onTitleInputChange = (id, data) => {
         const { value } = data.target
         dispatch(changeTitleQuest({ secid, id, value }))
-    }
-
-    // ====CAMBIAR RESPUESTA CORRECTA=====
-    const handleCorrectAnsw = (value, questId, respId) => {
-        dispatch(changeCorrectAnsw({value, questId, respId, secid}))
-    }
-
-    // =========CAMBIAR RESPUESTA========
-    const onRespInputChange = (info, respId, questId) => {
-        const { value } = info.target
-        dispatch(changeRespQuest({ value, respId, questId, secid }))
-
     }
 
     return (
@@ -48,37 +36,16 @@ export const QuestCard = ({secid, id, titleQuest, resp}) => {
             <div className="ne-qst-resp">
                 {
                     resp.map(({ text, isCorrect }, key) => (
+                        
+                        <AnswCard 
+                            text={text}
+                            isCorrect={isCorrect}
+                            key={key}
+                            rkey = {key}
+                            id={id}
+                            secid={secid}
+                        />
 
-                        <div className="ne-qst-respe animate__animated animate__fadeIn" key={key}>
-
-                            {isCorrect
-                                ? <BiRadioCircleMarked
-                                    onClick={() => handleCorrectAnsw(isCorrect, id, key)}
-                                    className='ne-qst-micon'
-                                />
-                                : <BiRadioCircle
-                                    onClick={() => handleCorrectAnsw(isCorrect, id, key)}
-                                    className='ne-qst-micon'
-                                />
-                            }
-
-                            <input
-                                type="text"
-                                placeholder='Ingresa una respuesta'
-                                value={text}
-                                onChange={(data) => onRespInputChange(data, key, id)}
-                            />
-
-                            <div className="ne-qst-tools">
-                                <button>
-                                <BiImageAdd />
-                            </button>
-
-                                <button onClick={() => dispatch(removeAnswer({ id, key, secid }))}>
-                                    <AiOutlineClose />
-                                </button>
-                            </div>
-                        </div>
                     ))
                 }
             </div>

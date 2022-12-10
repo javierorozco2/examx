@@ -20,13 +20,15 @@ export const examxSlice = createSlice({
         },
 
         changeRespQuest: ({ examActiveEdit }, { payload }) => {
+            // console.log(payload);
             examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].text = payload.value
         },
 
         addNewEmptyAnswer: ({ examActiveEdit }, { payload }) => {
             examActiveEdit.sections[payload.secid].quest[payload.id].resp.push({
                 text: '',
-                isCorrect: false
+                isCorrect: false,
+                images: []
             })
         },
 
@@ -37,7 +39,8 @@ export const examxSlice = createSlice({
                 titleQuest: '',
                 resp: [{
                     text: '',
-                    isCorrect: true
+                    isCorrect: true,
+                    images: []
                 }]
             })
         },
@@ -114,7 +117,8 @@ export const examxSlice = createSlice({
                         resp: [
                             {
                                 text: '',
-                                isCorrect: true
+                                isCorrect: true,
+                                images: []
                             }
                         ]
                     },
@@ -125,6 +129,14 @@ export const examxSlice = createSlice({
 
         removeSection: ({examActiveEdit}, {payload}) => {
             examActiveEdit.sections.splice(payload, 1)
+        },
+
+        setImageToResp: ({examActiveEdit}, {payload}) => {
+            examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].images.push(payload.url)
+        },
+
+        deleteQstImg: ( {examActiveEdit}, {payload}) => {
+            examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].images.splice(payload.imgkey, 1)
         }
 
 
@@ -152,5 +164,7 @@ export const {
     setSectionTitle,
     setSectionDesc,
     addNewSection,
-    removeSection
+    removeSection,
+    setImageToResp,
+    deleteQstImg
 } = examxSlice.actions;
