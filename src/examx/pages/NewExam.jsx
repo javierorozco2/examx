@@ -10,43 +10,12 @@ import { addNewSection, onEditExam, setExamActiveEdit } from '../../store/examx/
 import '../css/newexam.css'
 import { SaveExamModal } from '../components/NewExam/SaveExamModal';
 import { SectionCard } from '../components/NewExam/SectionCard';
-
-
-const initialForm = {
-    uid: '',
-    createdAt: '',
-    title: '',
-    isEGEL: false,
-    egelRqst: false,
-    desc: '',
-    isPublished: false,
-    sections: [
-        {
-            title: '',
-            desc: '',
-            image: '',
-            quest: [
-                {
-                    titleQuest: '',
-                    resp: [
-                        {
-                            text: '',
-                            isCorrect: true,
-                            images: []
-                        }
-                    ]
-                },
-            ]
-        }
-    ]
-
-}
+import { initialForm } from '../helpers/initialForm';
 
 export const NewExam = () => {
 
     const [formState, setFormState] = useState(initialForm)
     const [saveModal, setSaveModal] = useState(false)
-
     const { title, desc, egelRqst } = formState
 
     const { photoURL, displayName } = useSelector(state => state.auth)
@@ -79,6 +48,7 @@ export const NewExam = () => {
 
 
     return (
+
         <div className='newexam'>
 
             {/* =========Navegación========== */}

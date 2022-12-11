@@ -174,7 +174,48 @@
     font-size: 16px;
     margin-right: 5px;
 }
-/* Login resposive */
+
+/* ///////////////Error Modal///////////// */
+.errmsj{
+    width: 500px;
+    padding: 5px 0;
+    border-radius: 5px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(221, 94, 94);
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999;
+    transition: .5s bottom ease;
+}
+
+.errmsjinvisible{
+    bottom: -30px;
+}
+
+.errmsj-icon{
+    color: #fff;
+    margin-right: 5px;
+}
+
+.errmsj-text{
+    color: #fff;
+    font-weight: bold;
+
+}
+
+/* sweetalert2 */
+.swal2-title{
+    font-size: 20px;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* ///////////////77Login resposive///////////// */
 
 @media (max-width: 800px) {
     /* #login {

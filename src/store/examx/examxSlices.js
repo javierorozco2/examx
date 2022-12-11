@@ -11,6 +11,14 @@ export const examxSlice = createSlice({
         examActiveEdit: {}
     },
     reducers: {
+        resetExamActiveEdit: ({examActiveEdit}, action) =>{
+            console.log('qpd');
+            examActiveEdit = action.payload
+        },
+        setErrorMsj: (state, action) =>{
+            state.errorMsj = action.payload
+        },
+
         setExamActiveEdit: (state, action) => {
             state.examActiveEdit = action.payload
         },
@@ -155,6 +163,7 @@ export const examxSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+    setErrorMsj,
     setExamActiveEdit,
     changeTitleQuest,
     changeRespQuest,
@@ -177,5 +186,6 @@ export const {
     setImageToResp,
     deleteQstImg,
     setImageToDesc,
-    removeDescImg
+    removeDescImg,
+    resetExamActiveEdit
 } = examxSlice.actions;
