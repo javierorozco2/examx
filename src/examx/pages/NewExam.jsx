@@ -5,32 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineLeft } from 'react-icons/ai';
 import { BsFillBookmarksFill } from "react-icons/bs"
 import { shortName } from '../helpers/shortName';
-import { addNewEmptyQuestion, addNewSection, onEditExam, removeSection, setExamActiveEdit, setSectionDesc, setSectionTitle } from '../../store/examx/examxSlices';
+import { addNewEmptyQuestion, addNewSection, onEditExam, removeDescImg, removeSection, setExamActiveEdit, setSectionDesc, setSectionTitle } from '../../store/examx/examxSlices';
 
 import '../css/newexam.css'
 import { QuestCard } from '../components/NewExam/QuestCard';
 import { SaveExamModal } from '../components/NewExam/SaveExamModal';
+import { BiImageAdd, BiTrash } from 'react-icons/bi';
+import BounceLoader from "react-spinners/BounceLoader"
+import { useRef } from 'react';
+import { addDescImg } from '../../store/examx/thunks';
 
-// const initialForm = {
-//     uid: '',
-//     createdAt: '',
-//     title: '',
-//     isEGEL: false,
-//     egelRqst: false,
-//     desc: '',
-//     isPublished: false,
-//     quest: [
-//         {
-//             titleQuest: '',
-//             resp: [
-//                 {
-//                     text: '',
-//                     isCorrect: true
-//                 }
-//             ]
-//         },
-//     ]
-// }
 
 const initialForm = {
     uid: '',
@@ -44,6 +28,7 @@ const initialForm = {
         {
             title: '',
             desc: '',
+            image: '',
             quest: [
                 {
                     titleQuest: '',
@@ -65,23 +50,20 @@ export const NewExam = () => {
 
     const [formState, setFormState] = useState(initialForm)
     const [saveModal, setSaveModal] = useState(false)
+    const [imgloader, setImgloader] = useState(false)
+
     const { title, desc, egelRqst } = formState
 
     const { photoURL, displayName } = useSelector(state => state.auth)
     const { examActiveEdit, isloading } = useSelector(state => state.examx)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const imgref = useRef()
 
     const activeModal = () => {
 
         setSaveModal(true)
         document.body.classList.add('no-scroll');
-
-
-        // document.querySelector('#activar').addEventListener('click', e => {
-        //     // Quitar clase para permitir desplazamiento
-        //     document.body.classList.remove('no-scroll');
-        // });
     }
 
     const onInputChange = ({ target }) => {
@@ -106,6 +88,19 @@ export const NewExam = () => {
         dispatch(setSectionDesc({ value, id }))
     }
 
+    // =========SUBIDA DE IMAGEN=========
+    const onFileInputChange = async ({ img, secid }) => {
+
+        if (img.target.files === 0) return
+
+        const file = img.target.files[0]
+
+        setImgloader(true)
+        await dispatch(addDescImg({ file, secid }))
+        setImgloader(false)
+
+        imgref.current.value = ''
+    }
     useEffect(() => {
 
         dispatch(setExamActiveEdit(formState))
@@ -160,18 +155,52 @@ export const NewExam = () => {
                                     value={info.title}
                                     onChange={(e) => onHandleTitleSec(e, secid)}
                                 />
-                                <AiOutlineClose onClick={() => dispatch(removeSection(secid))}/>
+                                <AiOutlineClose onClick={() => dispatch(removeSection(secid))} />
                             </div>
 
-                            <textarea
-                                placeholder="Ingresa una descripción de sección"
-                                cols="30"
-                                rows="2"
-                                name='desc'
-                                value={info.desc}
-                                onChange={(e) => onHandleDescSec(e, secid)}
-                                className="ne-section-desc"
-                            />
+                            <div className='ne-section-divdesc'>
+                                <textarea
+                                    placeholder="Ingresa una descripción de sección"
+                                    cols="30"
+                                    rows="2"
+                                    name='desc'
+                                    value={info.desc}
+                                    onChange={(e) => onHandleDescSec(e, secid)}
+                                    className="ne-section-desc"
+                                />
+
+                                <input
+                                    type="file"
+                                    ref={imgref}
+                                    onChange={(img) => onFileInputChange({ img, secid })}
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    disabled={imgloader}
+                                />
+
+                                {!imgloader ?
+                                    <BiImageAdd
+                                        onClick={() => imgref.current.click()}
+                                        className='adddescimg-icon'
+                                    />
+                                    : <BounceLoader
+                                        color="#3A89C9"
+                                        speedMultiplier={.5}
+                                        size={15}
+                                    />
+                                }
+
+                            </div>
+
+                            {
+                                (info.image != '') &&
+                                <div className='ne-section-image'>
+                                    <img src={info.image} alt="" />
+                                    <div className='animate__animated animate__fadeIn'>
+                                        <BiTrash onClick={() => dispatch(removeDescImg(secid))} />
+                                    </div>
+                                </div>
+                            }
 
                             {info.quest?.map((dat, id = key) => (
 

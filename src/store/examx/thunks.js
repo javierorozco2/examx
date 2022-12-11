@@ -1,4 +1,4 @@
-import { onEditExam, onEditExamDisable, setImageToResp, setLoading, setNoLoading, setPublished } from "./examxSlices"
+import { onEditExam, onEditExamDisable, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished } from "./examxSlices"
 import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB, storage } from "../../firebase/config"
 import { async } from "@firebase/util"
@@ -10,8 +10,6 @@ export const publishExam = () => {
         dispatch(setLoading())
 
         const { examActiveEdit } = getState().examx
-
-        console.log(examActiveEdit);
 
         const docRef = doc(collection(FirebaseDB, `examfrompage/examx/exam`))
         await setDoc(docRef, examActiveEdit)
@@ -39,7 +37,6 @@ export const startUploadingFiles = ({ file = [], secid, questId, respId }) => {
         try {
             await uploadBytes(storageRef, file)
             const url = await (getDownloadURL(storageRef))
-            console.log(url);
 
             dispatch(setImageToResp({ secid, questId, respId, url }))
 
@@ -50,4 +47,31 @@ export const startUploadingFiles = ({ file = [], secid, questId, respId }) => {
         dispatch(setNoLoading())
     }
 
+}
+
+export const addDescImg = ({ file = [], secid }) => {
+    return async (dispatch, getState) => { 
+        dispatch(setLoading())
+
+        const storageRef = ref(storage, 'images/' + v4())
+
+        if (!(file.type.includes('image'))) {
+            dispatch(setNoLoading())
+            throw new Error('El archivo no es una imagen')
+            return
+        }
+
+
+        try {
+            await uploadBytes(storageRef, file)
+            const url = await (getDownloadURL(storageRef))
+
+            dispatch(setImageToDesc({ secid, url }))
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        dispatch(setNoLoading())
+    }
 }

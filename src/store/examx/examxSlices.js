@@ -111,6 +111,7 @@ export const examxSlice = createSlice({
             examActiveEdit.sections.push({
                 title: '',
                 desc: '',
+                image: '',
                 quest: [
                     {
                         titleQuest: '',
@@ -137,6 +138,14 @@ export const examxSlice = createSlice({
 
         deleteQstImg: ( {examActiveEdit}, {payload}) => {
             examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].images.splice(payload.imgkey, 1)
+        },
+
+        setImageToDesc: ({examActiveEdit}, {payload}) => {
+            examActiveEdit.sections[payload.secid].image = payload.url
+        },
+
+        removeDescImg: ({examActiveEdit}, {payload}) => {
+            examActiveEdit.sections[payload].image = ""
         }
 
 
@@ -166,5 +175,7 @@ export const {
     addNewSection,
     removeSection,
     setImageToResp,
-    deleteQstImg
+    deleteQstImg,
+    setImageToDesc,
+    removeDescImg
 } = examxSlice.actions;
