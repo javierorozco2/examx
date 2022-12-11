@@ -33,7 +33,7 @@ export const Login = () => {
         <div id='login'>
             <div id='login-d1' >
                 <div className='logo'>exam<p className='logo-x'>X</p></div>
-                <img src="../../public/images/working-man.png" alt="iniciar-sesion-imagen" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/examx-10474.appspot.com/o/working-man.png?alt=media&token=e7582cb1-3135-4ee2-8908-f6bf01e0a7fe" alt="iniciar-sesion-imagen" />
             </div>
 
             <div id='login-d2'>

@@ -9,7 +9,7 @@ import { QuestCard } from "./QuestCard"
 import BounceLoader from "react-spinners/BounceLoader"
 
 
-export const SectionCard = ({ key, info, secid }) => {
+export const SectionCard = ({ info, secid }) => {
 
     const imgref = useRef()
     const [imgloader, setImgloader] = useState(false)

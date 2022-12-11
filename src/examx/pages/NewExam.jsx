@@ -44,6 +44,8 @@ export const NewExam = () => {
 
     useEffect(() => {
         dispatch(onEditExam(true))
+        document.body.classList.remove('no-scroll');
+
     }, [])
 
 

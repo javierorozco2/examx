@@ -91,7 +91,8 @@ export const examxSlice = createSlice({
 
         setuid: (state, { payload }) => {
             state.examActiveEdit.uid = payload.uid
-            state.examActiveEdit.createdAt = payload.date
+
+            if (payload.date) state.examActiveEdit.createdAt = payload.date
         },
 
         onEditExam: (state, { payload }) => {

@@ -1,4 +1,4 @@
-import { onEditExam, onEditExamDisable, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished } from "./examxSlices"
+import { onEditExam, onEditExamDisable, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
 import { collection, doc, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB, storage } from "../../firebase/config"
 import { async } from "@firebase/util"
@@ -9,6 +9,10 @@ export const publishExam = () => {
     return async (dispatch, getState) => {
         dispatch(setLoading())
 
+        const { uid } = getState().auth
+        dispatch(setuid({uid}))
+        dispatch(setPublished())
+
         const { examActiveEdit } = getState().examx
 
         const docRef = doc(collection(FirebaseDB, `examfrompage/examx/exam`))
@@ -16,7 +20,6 @@ export const publishExam = () => {
 
         dispatch(onEditExamDisable())
         dispatch(setNoLoading())
-        dispatch(setPublished())
     }
 }
 
@@ -73,5 +76,15 @@ export const addDescImg = ({ file = [], secid }) => {
         }
 
         dispatch(setNoLoading())
+    }
+}
+
+export const startLoadingExams = () => {
+    return async(dispatch, getState) => {
+        const { uid } = getState().auth
+
+        if(!uid) throw new Error("No se encontro el uid")
+
+
     }
 }

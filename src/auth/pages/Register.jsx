@@ -45,7 +45,7 @@ export const Register = () => {
         <div id='login'>
             <div id='login-d1' >
                 <div className='logo'>exam<p className='logo-x'>X</p></div>
-                <img src="../../public/images/personal-settings.png" alt="iniciar-sesion-imagen" />
+                <img src="https://firebasestorage.googleapis.com/v0/b/examx-10474.appspot.com/o/personal-settings.png?alt=media&token=ff83c1a6-1e19-4596-b98c-faf7a0fc476e" alt="iniciar-sesion-imagen" />
             </div>
 
             <div id='login-d2'>
