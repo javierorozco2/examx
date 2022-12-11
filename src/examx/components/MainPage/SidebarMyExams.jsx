@@ -17,11 +17,11 @@ export const SidebarMyExams = ({ myExams, setModalMyExams }) => {
             </div>
 
             {
-                myExams.map(e => (
-                    <div className="abody-card" key={e} onClick={navigateExam}>
+                myExams.map( (exam, key) => (
+                    <div className="abody-card" key={key} onClick={navigateExam}>
                         <div className="abody-cardinf" >
                             <div className="abody-cardled" />
-                            <p>{e}</p>
+                            <p>{exam.title}</p>
                         </div>
 
                         <BsChevronRight className="abody-icons" />

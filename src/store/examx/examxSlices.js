@@ -155,6 +155,11 @@ export const examxSlice = createSlice({
 
         removeDescImg: ({examActiveEdit}, {payload}) => {
             examActiveEdit.sections[payload].image = ""
+        },
+
+        setExams: ( state, {payload} ) => {
+            state.myExams = payload
+
         }
 
 
@@ -188,5 +193,6 @@ export const {
     deleteQstImg,
     setImageToDesc,
     removeDescImg,
-    resetExamActiveEdit
+    resetExamActiveEdit,
+    setExams
 } = examxSlice.actions;

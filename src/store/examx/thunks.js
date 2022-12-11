@@ -1,7 +1,6 @@
-import { onEditExam, onEditExamDisable, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
-import { collection, doc, setDoc } from "firebase/firestore/lite"
+import { onEditExam, onEditExamDisable, setExams, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
+import { collection, doc, getDocs, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB, storage } from "../../firebase/config"
-import { async } from "@firebase/util"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
 
@@ -84,6 +83,19 @@ export const startLoadingExams = () => {
         const { uid } = getState().auth
 
         if(!uid) throw new Error("No se encontro el uid")
+
+        const collectionRef = collection(FirebaseDB, `examfrompage/examx/exam`)
+
+        const docs = await getDocs(collectionRef)
+
+        const exams = []
+        docs.forEach( doc => {
+            if( doc.data().uid === uid ){
+                exams.push(doc.data())
+            }
+        })
+
+        dispatch(setExams(exams))
 
 
     }

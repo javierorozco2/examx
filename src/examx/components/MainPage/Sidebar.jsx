@@ -13,10 +13,10 @@ export const Sidebar = () => {
     const dispatch = useDispatch()
     const { displayName, photoURL } = useSelector( s => s.auth  )
     const [isSandwich, setIsSandwich] = useState(false)
+    const { myExams } = useSelector( state => state.examx)
 
     
     const [savedExams, setSavedExams] = useState(['EGEL IS 2022', 'Examen SO']) //Variable temporal
-    const [myExams, setMyExams] = useState(['EGEL IS 2022', 'Examen SO','s','sa']) //Variable temporal
     const [ModalMyExams, setModalMyExams] = useState(false)
     
     const onLogout = () => {
