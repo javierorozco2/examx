@@ -27,7 +27,7 @@ export const Sidebar = () => {
         setIsSandwich(!isSandwich)   
     }
     return (
-        <div className="main-sb">
+        <div className="sb">
 
             {/* Account options */}
             <div className="aheader">
@@ -41,7 +41,8 @@ export const Sidebar = () => {
                 </div>
 
                 <div className="aheader-opt">
-                    <button onClick={ () => setModalMyExams(true) } className="buttonnone">
+                    
+                    <button onClick={ () => setModalMyExams(true) } className={"buttonnone "+ (!isSandwich && 'asidevisible') }>
                         <BiEdit className={"aheader-icons " + (ModalMyExams && "aheader-iconsactive")} />
                     </button>
 

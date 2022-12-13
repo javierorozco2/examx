@@ -3,16 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 export const examxSlice = createSlice({
     name: 'examx',
     initialState: {
-        myExams: [],
-        savedExams: [],
         editExam: false,
-        errorMsj: '',
         isloading: false,
+        errorMsj: '',
+        myExamSelected: {},
+        savedExams: [],
+        myExams: [],
         examActiveEdit: {}
     },
     reducers: {
         resetExamActiveEdit: ({examActiveEdit}, action) =>{
-            console.log('qpd');
             examActiveEdit = action.payload
         },
         setErrorMsj: (state, action) =>{
@@ -28,7 +28,6 @@ export const examxSlice = createSlice({
         },
 
         changeRespQuest: ({ examActiveEdit }, { payload }) => {
-            // console.log(payload);
             examActiveEdit.sections[payload.secid].quest[payload.questId].resp[payload.respId].text = payload.value
         },
 
@@ -159,8 +158,18 @@ export const examxSlice = createSlice({
 
         setExams: ( state, {payload} ) => {
             state.myExams = payload
+        },
 
-        }
+        setMyExamSelected: ( state, {payload}) => {
+            state.myExamSelected = payload
+
+        },
+
+        clearExamSelected: ( state, {payload}) => {
+            state.myExamSelected = {}
+
+        },
+        
 
 
     }
@@ -194,5 +203,7 @@ export const {
     setImageToDesc,
     removeDescImg,
     resetExamActiveEdit,
-    setExams
+    setExams,
+    setMyExamSelected,
+    clearExamSelected
 } = examxSlice.actions;

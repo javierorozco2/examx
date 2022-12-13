@@ -6,26 +6,29 @@ export const SidebarSavedExams = ({ savedExams }) => {
             <div className="abody-titlediv">
                 <p className="abody-title">Examenes asignados</p>
             </div>
-            {
-                savedExams.map(e => (
-                    <div className="abody-card" key={e}>
-                        <div className="abody-cardinf">
-                            <div className="abody-cardled" />
-                            <p>{e}</p>
+
+            <div className="abody-scroll">
+                {
+                    savedExams.map(e => (
+                        <div className="abody-card" key={e}>
+                            <div className="abody-cardinf">
+                                <div className="abody-cardled" />
+                                <p>{e}</p>
+                            </div>
+
+                            <BsChevronRight className="abody-icons" />
                         </div>
+                    ))
+                }
 
-                        <BsChevronRight className="abody-icons" />
-                    </div>
-                ))
-            }
-
-            {
-                savedExams.length < 1 && (
-                    <div className="abody-notfound">
-                        No se encontro ningun examen asignado o creado
-                    </div>
-                )
-            }
+                {
+                    savedExams.length < 1 && (
+                        <div className="abody-notfound">
+                            No se encontro ningun examen asignado o creado
+                        </div>
+                    )
+                }
+            </div>
         </div>
     )
 }

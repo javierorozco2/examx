@@ -1,24 +1,31 @@
+.main-supercontainer{
+    background-color: antiquewhite;
+    width: 100vw;
+    display: flex;
+}
+
+.sb{
+    width: 320px;
+    height: 100vh;
+    background-color: var(--element-color);
+}
+
 .main-container{
     display: flex;
     height: 100vh;
+    width: 100%;
     background-color: var(--background-color);
 }
 
-.main-sb{
-    flex: 2;
-    background-color: var(--element-color);
-
-}
-
 .main-search{
-    flex: 5;
+    flex: 1;
     margin: 30px 15px 0 20px;
     display: flex;
     flex-direction: column;
 }
 
 .main-ovw{
-    flex: 3;
+    flex: 1;
     margin: 30px 20px 0 15px;
     position: relative;
 }
@@ -252,6 +259,26 @@
 /* ==========Overview=========== */
 
 .ovw-title{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.ovw-xbotton{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .0);
+    border: none;
+    font-size: 30px;
+    color: rgba(0, 0, 0, .5);
+    display: flex;
+    height: 30px;
+}
+
+.ovw-xbotton:hover{
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.ovw-title div{
     font-size: 32px;
     color: rgba(0, 0, 0, .8);
     display: flex;
@@ -322,6 +349,10 @@
 }
 
 @media (max-width: 800px) {
+    .main-supercontainer{
+        flex-direction: column;
+    }
+
     .main-container{
         flex-direction: column;
     }
@@ -339,8 +370,20 @@
         cursor: pointer;
     }
 
-    .main-sb{
+    .main-line{
+        display: none;
+    }
+
+    .sb{
+        /* overflow: scroll; */
+        height: auto;
+        width: 100%;
         position: relative;
+    }
+
+    .abody-scroll{
+        max-height: 150px;
+        overflow: scroll;
     }
 
     .asidevisible{
@@ -361,7 +404,8 @@
     } */
 
     .main-search{
-        background-color: var(--element-color);
+        background-color: var(--blue-color);
+        max-height: 250px;
         margin: 0;
         padding: 20px 10px;
     }
