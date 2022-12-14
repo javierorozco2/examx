@@ -17,7 +17,6 @@ export const validateMyExam = () => {
             setItsMyExam(false)
         }
 
-        console.log(ItsMyExam);
     }, [myExamSelected])
 
     return ItsMyExam

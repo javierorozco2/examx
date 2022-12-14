@@ -1,5 +1,5 @@
-import { onEditExam, onEditExamDisable, setExams, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
-import { collection, doc, getDocs, setDoc } from "firebase/firestore/lite"
+import { clearExamSelected, deleteExamById, onEditExam, onEditExamDisable, setExams, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
+import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB, storage } from "../../firebase/config"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 } from "uuid"
@@ -91,12 +91,35 @@ export const startLoadingExams = () => {
         const exams = []
         docs.forEach( doc => {
             if( doc.data().uid === uid ){
-                exams.push(doc.data())
+                exams.push({ examid: doc.id, ...doc.data()})
             }
         })
 
         dispatch(setExams(exams))
 
+
+    }
+}
+
+export const startDeletingExam = () => {
+    return async(dispatch, getState) => {
+        const { uid } = getState().auth
+        const { myExamSelected} = getState().examx
+
+        if (uid != myExamSelected.uid) return
+
+        try {
+            const docRef = doc( FirebaseDB,  `examfrompage/examx/exam/${ myExamSelected.examid }`)
+            await deleteDoc( docRef )
+    
+            dispatch( deleteExamById(myExamSelected.examid) )
+            dispatch(clearExamSelected())
+
+            return true
+        } catch (error) {
+            console.log(error);
+            return false
+        }
 
     }
 }

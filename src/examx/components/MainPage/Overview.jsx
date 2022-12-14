@@ -1,11 +1,13 @@
 import { BsFillBookmarksFill, BsClock } from "react-icons/bs"
 import { BiSave } from "react-icons/bi"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { useState } from "react"
 import { validateMyExam } from "../../helpers/validateMyExam"
 import { AiOutlineClose } from "react-icons/ai"
 import { clearExamSelected } from "../../../store/examx/examxSlices"
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
+import { startDeletingExam } from "../../../store/examx/thunks"
 
 export const Overview = () => {
 
@@ -31,6 +33,40 @@ export const Overview = () => {
         })
 
         return count
+    }
+    
+    const onDeleteExam = () => {
+        Swal.fire({
+            icon: 'warning',
+            title: '¿Estas seguro de borrar este examen?',
+            showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: "#3085d6"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                const process = dispatch( startDeletingExam() )
+
+                if (process){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Examen borrado correctamente',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#222A34"
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Ocurrio un error al borrar el examen',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#222A34"
+                    })
+                }
+            } 
+        })
+        
     }
 
 
@@ -82,10 +118,28 @@ export const Overview = () => {
                 <div>{myExamSelected.desc}</div>
             </div>
 
-            {/* ----------------boton guardar-------------- */}
-            <button className="ovw-button">
-                Guardar examen
-            </button>
+            {/* ----------------Zona de botones guardar-------------- */}
+            <div className="ovw-divbutton">
+
+                {
+                    !boolexam ? 
+                    <button className="ovw-button">
+                        Guardar examen
+                    </button>
+                    :
+                    <>                    
+                        <button className="ovw-button">
+                            Editar 
+                        </button>
+
+                        <button className="ovw-button ovw-button-x" onClick={onDeleteExam}>
+                            Eliminar 
+                        </button>
+                    </>
+                }
+
+
+            </div>
 
         </div>
     )

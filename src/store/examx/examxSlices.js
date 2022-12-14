@@ -169,6 +169,10 @@ export const examxSlice = createSlice({
             state.myExamSelected = {}
 
         },
+
+        deleteExamById: ( state, action) => {
+            state.myExams = state.myExams.filter( exam => exam.examid != action.payload  )
+        }
         
 
 
@@ -205,5 +209,6 @@ export const {
     resetExamActiveEdit,
     setExams,
     setMyExamSelected,
-    clearExamSelected
+    clearExamSelected,
+    deleteExamById
 } = examxSlice.actions;
