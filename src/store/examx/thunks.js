@@ -1,4 +1,4 @@
-import { clearExamSelected, deleteExamById, onEditExam, onEditExamDisable, setExams, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
+import { clearExamSelected, deleteExamById, onEditExam, onEditExamDisable, setAllExams, setExams, setImageToDesc, setImageToResp, setLoading, setNoLoading, setPublished, setuid } from "./examxSlices"
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore/lite"
 import { FirebaseDB, storage } from "../../firebase/config"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
@@ -9,7 +9,7 @@ export const publishExam = () => {
         dispatch(setLoading())
 
         const { uid } = getState().auth
-        dispatch(setuid({uid}))
+        dispatch(setuid({ uid }))
         dispatch(setPublished())
 
         const { examActiveEdit } = getState().examx
@@ -52,7 +52,7 @@ export const startUploadingFiles = ({ file = [], secid, questId, respId }) => {
 }
 
 export const addDescImg = ({ file = [], secid }) => {
-    return async (dispatch, getState) => { 
+    return async (dispatch, getState) => {
         dispatch(setLoading())
 
         const storageRef = ref(storage, 'images/' + v4())
@@ -79,22 +79,29 @@ export const addDescImg = ({ file = [], secid }) => {
 }
 
 export const startLoadingExams = () => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         const { uid } = getState().auth
 
-        if(!uid) throw new Error("No se encontro el uid")
+        if (!uid) throw new Error("No se encontro el uid")
 
         const collectionRef = collection(FirebaseDB, `examfrompage/examx/exam`)
 
         const docs = await getDocs(collectionRef)
 
         const exams = []
-        docs.forEach( doc => {
-            if( doc.data().uid === uid ){
-                exams.push({ examid: doc.id, ...doc.data()})
+        const allExams = []
+        docs.forEach(doc => {
+
+            if(doc.data().isPublished){
+                allExams.push({examid: doc.id, ...doc.data()})
+            }
+
+            if (doc.data().uid === uid) {
+                exams.push({ examid: doc.id, ...doc.data() })
             }
         })
 
+        dispatch(setAllExams(allExams) )
         dispatch(setExams(exams))
 
 
@@ -102,17 +109,17 @@ export const startLoadingExams = () => {
 }
 
 export const startDeletingExam = () => {
-    return async(dispatch, getState) => {
+    return async (dispatch, getState) => {
         const { uid } = getState().auth
-        const { myExamSelected} = getState().examx
+        const { myExamSelected } = getState().examx
 
         if (uid != myExamSelected.uid) return
 
         try {
-            const docRef = doc( FirebaseDB,  `examfrompage/examx/exam/${ myExamSelected.examid }`)
-            await deleteDoc( docRef )
-    
-            dispatch( deleteExamById(myExamSelected.examid) )
+            const docRef = doc(FirebaseDB, `examfrompage/examx/exam/${myExamSelected.examid}`)
+            await deleteDoc(docRef)
+
+            dispatch(deleteExamById(myExamSelected.examid))
             dispatch(clearExamSelected())
 
             return true

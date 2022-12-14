@@ -4,7 +4,7 @@ export const SidebarSavedExams = ({ savedExams }) => {
     return (
         <div className="animate__animated animate__fadeInLeft">
             <div className="abody-titlediv">
-                <p className="abody-title">Examenes asignados</p>
+                <p className="abody-title">Examenes guardados</p>
             </div>
 
             <div className="abody-scroll">

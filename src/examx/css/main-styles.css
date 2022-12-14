@@ -18,7 +18,7 @@
 }
 
 .main-search{
-    flex: 1;
+    flex: 2;
     margin: 30px 15px 0 20px;
     display: flex;
     flex-direction: column;
@@ -254,8 +254,45 @@
     color: rgba(1, 1, 1, .5);
 }
 
+.s-cardright{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.s-carddate{
+    font-size: 12px !important;
+    background-color: var(--blue-color);
+    color: #fff;
+    padding: 3px 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
 .s-icons{
     color: rgba(1, 1, 1, .5);
+}
+
+.s-result{
+    position: relative;
+    height: 100vh;
+    overflow: auto;
+}
+
+.s-texts{
+    color: rgba(0, 0, 0, .5);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.s-ue{
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    padding: 0 10px 20px 10px;
 }
 
 /* ==========Overview=========== */
@@ -264,6 +301,20 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
+}
+
+.ovw-none{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ovw-none p{
+    color: rgba(0, 0, 0, .5);
+    border: 2px dashed var(--blue-color);
+    border-radius: 5px;
+    padding: 10px 15px;
 }
 
 .ovw-xbotton{
@@ -339,20 +390,21 @@
     background-color: var(--blue-color);
     color: #fff;
     border-radius: 5px;
-    /* position: absolute;
-    bottom: 50px; */
     width: 150px;
     height: 35px;
     font-size: 16px;
     left: 0;
     right: 0;
-    /* margin: auto; */
     transition: .2s box-shadow ease
 }
 
 .ovw-button-x{
     background-color: #dc3545;
     margin-left: 10px;
+}
+
+.ovw-button-save{
+    margin: auto auto 30px auto;
 }
 
 .ovw-button:hover{

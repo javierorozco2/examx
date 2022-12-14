@@ -12,13 +12,13 @@ import { startDeletingExam } from "../../../store/examx/thunks"
 export const Overview = () => {
 
     const boolexam = validateMyExam()
-    
-    const { myExamSelected } = useSelector( state => state.examx )
+
+    const { myExamSelected } = useSelector(state => state.examx)
     const dispatch = useDispatch()
 
     // ==========Convetir fecha formato local==============
     const dateString = () => {
-        const newDate = new Date( myExamSelected.createdAt )
+        const newDate = new Date(myExamSelected.createdAt)
         return newDate.toLocaleDateString('en-GB')
     }
 
@@ -26,15 +26,15 @@ export const Overview = () => {
     const getAmountOfQst = () => {
 
         let count = 0
-        myExamSelected.sections.map( i => {
-            i.quest.map( e => {
+        myExamSelected.sections.map(i => {
+            i.quest.map(e => {
                 count += 1
-            } )
+            })
         })
 
-        return count
+        return count + (count <= 1 ? ' pregunta' : ' preguntas')
     }
-    
+
     const onDeleteExam = () => {
         Swal.fire({
             icon: 'warning',
@@ -47,16 +47,16 @@ export const Overview = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                const process = dispatch( startDeletingExam() )
+                const process = dispatch(startDeletingExam())
 
-                if (process){
+                if (process) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Examen borrado correctamente',
                         confirmButtonText: 'Ok',
                         confirmButtonColor: "#222A34"
                     })
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'warning',
                         title: 'Ocurrio un error al borrar el examen',
@@ -64,39 +64,36 @@ export const Overview = () => {
                         confirmButtonColor: "#222A34"
                     })
                 }
-            } 
+            }
         })
-        
+
     }
 
 
-    if ( Object.keys(myExamSelected).length === 0)  {
-        return(
+    if (Object.keys(myExamSelected).length === 0) {
+        return (
             <div className="main-ovw">
-
-            {/* -----------------Titulo-------------------- */}
-            <div className="ovw-title">
-                <BsFillBookmarksFill className="ovw-titleicon-o"/>
-                <p>No hay nada pp</p>
+                <div className="ovw-none">
+                    <p>Selecciona cualquier examen disponible</p>
+                </div>
             </div>
-        </div>
         )
     }
 
     return (
-        <div className={"main-ovw " + (boolexam && 'animate__animated animate__zoomIn')}>
+        <div className={"main-ovw " + (boolexam && 'animate__animated animate__fadeInRight')}>
 
             {/* -----------------Titulo-------------------- */}
             <div className="ovw-title">
-                <div>                    
-                    <BsFillBookmarksFill className="ovw-titleicon-o"/>
+                <div>
+                    <BsFillBookmarksFill className="ovw-titleicon-o" />
                     <p>{myExamSelected.title}</p>
                 </div>
 
                 {
                     boolexam &&
                     <button className="ovw-xbotton" onClick={() => dispatch(clearExamSelected())}>
-                        <AiOutlineClose/>
+                        <AiOutlineClose />
                     </button>
                 }
 
@@ -104,13 +101,13 @@ export const Overview = () => {
 
             {/*------ fecha de publicación y guardados -----*/}
             <div className="ovw-info">
-                <p><BsClock className="ovw-icon"/>{dateString()}</p>
-                <p><BiSave className="ovw-icon"/> { getAmountOfQst() } </p>
+                <p><BsClock className="ovw-icon" />{dateString()}</p>
+                <p><BiSave className="ovw-icon" /> ? </p>
             </div>
 
             {/*----------- cantidad de preguntas ---------- */}
             <div className="ovw-desc">
-                <div>24 preguntas</div>
+                <div>{getAmountOfQst()}</div>
             </div>
 
             {/* -----------------descripción--------------- */}
@@ -119,23 +116,23 @@ export const Overview = () => {
             </div>
 
             {/* ----------------Zona de botones guardar-------------- */}
-            <div className="ovw-divbutton">
+            <div className={"ovw-divbutton " + (!boolexam && "ovw-button-save")}>
 
                 {
-                    !boolexam ? 
-                    <button className="ovw-button">
-                        Guardar examen
-                    </button>
-                    :
-                    <>                    
+                    !boolexam ?
                         <button className="ovw-button">
-                            Editar 
+                            Guardar examen
                         </button>
+                        :
+                        <>
+                            <button className="ovw-button">
+                                Editar
+                            </button>
 
-                        <button className="ovw-button ovw-button-x" onClick={onDeleteExam}>
-                            Eliminar 
-                        </button>
-                    </>
+                            <button className="ovw-button ovw-button-x" onClick={onDeleteExam}>
+                                Eliminar
+                            </button>
+                        </>
                 }
 
 

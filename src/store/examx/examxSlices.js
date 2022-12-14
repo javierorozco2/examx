@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const examxSlice = createSlice({
     name: 'examx',
     initialState: {
+        allExams: [],
         editExam: false,
         isloading: false,
         errorMsj: '',
@@ -172,6 +173,10 @@ export const examxSlice = createSlice({
 
         deleteExamById: ( state, action) => {
             state.myExams = state.myExams.filter( exam => exam.examid != action.payload  )
+        },
+
+        setAllExams: ( state, {payload}) => {
+            state.allExams = payload
         }
         
 
@@ -210,5 +215,6 @@ export const {
     setExams,
     setMyExamSelected,
     clearExamSelected,
-    deleteExamById
+    deleteExamById,
+    setAllExams
 } = examxSlice.actions;
